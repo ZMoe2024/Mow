@@ -1,0 +1,31 @@
+name: bash_version
+
+on:
+  workflow_dispatch:
+  push:
+  schedule:
+    - cron: 10 16 * * *
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout signin scripts
+        uses: actions/checkout@v2
+        with:
+          repository: ZMoe2024/Mow
+          path: thisRepo
+      - name: checkin
+        env:
+          COOKIE: ${{ secrets.GLADOS }}
+        run: |
+          cookie_total="$COOKIE"
+          pwd
+          chmod +x ./thisRepo/signin.sh          
+          ./thisRepo/signin.sh "$cookie_total"
+
+          # ===== 使用方法 =====
+          # 将本文件传到github仓库根目录下的.github/workflows文件夹内
+          # 然后去仓库设置内启用github actions并创建一个secrets名为GLADOS里面填你在glados签到页面f12出来的cookie值
+          # 静等签到成功
+
